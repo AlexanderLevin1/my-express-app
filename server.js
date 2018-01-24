@@ -9,6 +9,11 @@ app.engine('html', nunjucks.render);
 
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 
+app.use((req, res, next)=> {
+  res.locals.path = req.url;
+  next();
+});
+
 app.get('/', (req, res, next)=> {
   res.render('index', { title: 'Home' });
 });
